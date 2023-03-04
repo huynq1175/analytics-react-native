@@ -292,7 +292,10 @@ export class SegmentClient {
       );
       this.logger.info(`Received settings from Segment succesfully.`);
       await Promise.all([
-        this.store.settings.set(integrations),
+        this.store.settings.set({
+          ...integrations,
+          ...this.config.defaultSettings,
+        }),
         this.store.filters.set(filters),
       ]);
     } catch (e) {
